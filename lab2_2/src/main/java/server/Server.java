@@ -66,6 +66,7 @@ public class Server {
                 .map(User::getCurrency)
                 .flatMap(userCurrency -> mongoDriver.getAllProducts()
                         .map(product -> product.getName() + " = " +
-                                product.getCurrency().convert(product.getPrice(), userCurrency) + userCurrency.toString() + "\n"));
+                                product.getCurrency().convert(product.getPrice(), userCurrency) + userCurrency.toString() + "\n"))
+                .defaultIfEmpty("user don't exist or product list is empty");
     }
 }
